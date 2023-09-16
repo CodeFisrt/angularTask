@@ -1,0 +1,116 @@
+<div class="container"> 
+    <div class="row pb-4">
+        <div class="col-12 text-center">
+           <h3>Employee Registration Form</h3> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div id=""> 
+                <div class="row">
+                    <div class="col text-center">
+                        <button class="btn  mx-2" [ngClass]="currentTab == 'Basic'?'btn-success':'btn-secondary'" (click)="currentTab = 'Basic'">Basic</button>
+                        <button class="btn btn-secondary mx-2" [ngClass]="currentTab == 'Contact'?'btn-success':'btn-secondary'" (click)="currentTab = 'Contact'">Contact</button>
+                       
+                    </div> 
+                </div>
+                <h4></h4>
+                <section class="pt-3" *ngIf="currentTab == 'Basic'">
+                    <div class="row pb-3"> 
+                        <div class="col-4">
+                            <input type="text" [(ngModel)]="employeeObj.fname" (ngModelChange)="generateFullName()" class="form-control"  placeholder="First Name">
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="employeeObj.mName" (ngModelChange)="generateFullName()" placeholder="Middle Name">
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="employeeObj.lName" (ngModelChange)="generateFullName()" placeholder="Last Name">
+                        </div>
+                     </div>
+                     <div class="row pb-3"> 
+                        <div class="col-8">
+                            <input type="text" disabled class="form-control" [(ngModel)]="employeeObj.fullName" placeholder="Full Name">
+                        </div> 
+                        <div class="col-4">
+                            <input type="text" disabled class="form-control" [(ngModel)]="employeeObj.empId" placeholder="Employee No">
+                        </div> 
+                     </div>
+                     <div class="row pb-3"> 
+                        <div class="col-6">
+                            <select class="form-control" [(ngModel)]="employeeObj.city">
+                                <option value="">Select City</option>
+                                <option *ngFor="let city of cityList" [value]="city">{{city}}</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div> 
+                        <div class="col-3">
+                            <input type="text" [disabled]="employeeObj.city != 'Other'" class="form-control" [(ngModel)]="employeeObj.otherCity" placeholder="Enter City">
+                        </div> 
+                     </div>
+        
+                     <div class="row pb-3"> 
+                        <div class="col-4">
+                            <input type="text" class="form-control"   [(ngModel)]="employeeObj.pinCode"  placeholder="Pin Code"> 
+                            <span class="text-danger" *ngIf="checkPinCode()">Enter Correct Pin Code</span>
+                        </div> 
+                     </div>  
+                </section>
+                <h4></h4>
+                <section class="pt-3" *ngIf="currentTab == 'Contact'">
+                    <div class="row pb-2"> 
+                        <div class="col-4">
+                            <input type="text" [(ngModel)]="employeeObj.contactNo"   class="form-control"  placeholder="Mobile No">
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="employeeObj.altContactNo"   placeholder="Alt Mobile No">
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="employeeObj.email"  placeholder="Email">
+                        </div>
+                     </div>
+                     <div class="row pt-3">
+                        <div class="col-4">
+                            <input type="checkbox"  [(ngModel)]="employeeObj.isWorking"> Are you Working
+                        </div>
+                        <div class="col-4" *ngIf="employeeObj.isWorking">
+                            <input type="text" class="form-control" [(ngModel)]="employeeObj.workEmail"   placeholder="Enter Work Email">
+                        </div>
+                     </div>
+                     <div class="row pt-3">
+                        <div class="col-4">
+                            <select class="form-control" [(ngModel)]="employeeObj.identityType">
+                                <option value="">Select Identity Proof</option>
+                                <option *ngFor="let city of identityProofList" [value]="city">{{city}}</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-4" *ngIf="employeeObj.identityType == 'Other'">
+                            <input type="text" class="form-control" [(ngModel)]="employeeObj.otherIdentityType"   placeholder="Other Identity Type">
+                        </div>
+                        <div class="col-4">
+                            <input type="text" class="form-control" [(ngModel)]="employeeObj.identityNo"  
+                             placeholder="Enter {{employeeObj.identityType == 'Other'? employeeObj.otherIdentityType : employeeObj.identityType}}">
+                        </div>
+                     </div>
+                </section> <!-- SECTION 3 -->
+               
+            </div> 
+        </div>
+        <div class="col-4">
+            <h6>Task Details</h6>
+            <ol>
+                <li>On Basic btn click show basic form likewise for Contact also add "btn-success" color to selected Button</li>
+                <li>Create Full Name by using first, middle & last name </li>
+                <li>Create Emp Id by Using fname & current Month no -  "EMP-" first Name - current Month</li>
+                <li>Create City Array bind it to city dropdown</li>
+                <li>If Other city is selected enable Other City textbox</li>
+                <li>If pinCode is not empty and its not having 6 charctors show error below textbox</li>
+                <li>If Is working Checkbox selected show Work Email textbox</li>
+                <li>Create Identity Type Array bind it to Identity dropdown</li>
+                <li>If Other Identity Type is selected show Other Identity Type textbox</li>
+                <li>Identity No texbox placeholder is dynamic - Enter "Identity Type"</li>
+            </ol>
+        </div>
+    </div>
+   
+</div>
